@@ -7,7 +7,7 @@ import {
   postMedia,
   putMedia,
 } from "../controllers/media-controller.mjs";
-import logger from "../middlewares/middleware.mjs";
+//import logger from "../middlewares/middleware.mjs";
 import { authenticateToken } from "../middlewares/authentication.mjs";
 
 const mediaRouter = express.Router();

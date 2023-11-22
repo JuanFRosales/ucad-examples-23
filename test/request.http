@@ -16,7 +16,7 @@ GET http://localhost:3000/
 GET http://localhost:3000/api/media
 
 ### GET media item by id
-GET http://localhost:3000/api/media/9590
+GET http://localhost:3000/api/media/1
 
 ### POST media item
 POST http://localhost:3000/api/media
