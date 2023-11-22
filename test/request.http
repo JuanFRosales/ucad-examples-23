@@ -1,29 +1,13 @@
-### GET /
-GET http://localhost:3000/
-
-### GET /items
-GET http://localhost:3000/api/items?limit=x
-
-### GET /items/:id
-GET http://localhost:3000/api/items/20
-
-### POST /items
-POST http://localhost:3000/api/items
+## auth/login
+### POST /api/auth/login
+POST http://localhost:3000/api/auth/login
 content-type: application/json
 
-{"name": "kurkku"}
+{"username": "JohnDoe", "password": "to-be-hashed-pw1"}
 
-### POST /items error
-POST http://localhost:3000/api/items
 
-{"jotain": "jotan"}
-
-### GET /kukkuu
-GET http://localhost:3000/kukkuu
-
-### GET /something-else
-GET http://localhost:3000/morjes
-
+### GET /
+GET http://localhost:3000/
 
 
 //Media Requests
@@ -42,9 +26,29 @@ content-type: application/json
   "filename": "60ac.jpg",
   "title": "New image",
   "description": "The description of the new image",
-  "user_id": 305,
-  "media_type": "image/jpeg"
+  "user_id": 305
 }
+
+
+
+POST http://localhost:3000/api/media
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="title"
+
+New media title
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="user_id"
+
+1
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="image.jpg"
+Content-Type: image/jpeg
+
+< ./image.jpg
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
 ### PUT media item
 PUT http://localhost:3000/api/media/9590
 content-type: application/json

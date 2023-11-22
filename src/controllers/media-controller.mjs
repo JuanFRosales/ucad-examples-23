@@ -1,31 +1,32 @@
-import mediaItems from './mock-data/media.json' assert {type: 'json'};
+import mediaItems from '../mock-data/media.json' assert {type: 'json'};
+import { addMedia, fetchAllMedia, fetchMediaById } from '../models/media-model.mjs';
 
-const getMedia = (req, res) => {
+const getMedia = async (req, res) => {
+  const mediaItems = await fetchAllMedia();
   res.json(mediaItems);
 };
 
-const getMediaById = (req, res) => {
-  const media = mediaItems.find((element) => element.media_id == req.params.id);
-  if (media) {
-    res.json(media);
+const getMediaById = async (req, res) => {
+  const result = await fetchMediaById(req.params.id);
+  if (result) {
+    res.json(result);
   } else {
-    res.status(404).json({ message: "Media not found." });
+    res.status(500)
+    res.json({ message: "Media not found." });
   }
 };
 
-const postMedia = (req, res) => {
-  console.log('new media posted', req.body,);
-  const newId = Math.floor(Math.random() * 9000 + 1000);
-  if (req.body.filename) {
-    mediaItems.push({
-      media_id: newId,
-      filename: req.body.filename,
-      title: req.body.title,
-      description: req.body.description,
-      user_id: req.body.user_id,
-      media_type: req.body.media_type,
-    });
-    res.sendStatus(201);
+const postMedia = async (req, res) => {
+  //console.log('uploaded file', req.file);
+  //console.log('uploaded form data', req.body);
+  const {title, description} = req.body;
+  const {filename, mimetype, size} = req.file;
+  const user_id = req.user.user_id;
+  if (filename && title && user_id) {
+    const newMedia = {title, description, user_id, filename, mimetype, size}
+    const result = await addMedia(); 
+    res.status(201);
+    res.json({message: 'New media item added.', ...result});
   } else {
     res.sendStatus(400);
   }

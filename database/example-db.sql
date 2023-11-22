@@ -31,6 +31,9 @@ INSERT INTO Users
     VALUES (260, 'VCHar', 'secret123', 'vchar@example.com', 1, null);
 INSERT INTO Users 
     VALUES (305, 'Donatello', 'secret234', 'dona@example.com', 1, null);
+INSERT INTO Users 
+    VALUES (null, 'New user', 'secret456', 'hey@example.com', 1, null);
+
 
 -- Add media items
 
@@ -41,5 +44,11 @@ INSERT INTO MediaItems (filename, filesize, title, description, user_id, media_t
 
 
 select filename, title, username from mediaitems JOIN users ON users.user_id=mediaitems.user_id;
-
-
+----inner join
+select filename, title, username MediaItems.created_at AS Uploaded
+from mediaitems 
+JOIN users ON users.user_id=mediaitems.user_id;
+-----right outer join: all users 
+select filename, title, username, MediaItems.created_at AS Uploaded
+from mediaitems 
+RIGHT   JOIN users ON users.user_id=mediaitems.user_id;

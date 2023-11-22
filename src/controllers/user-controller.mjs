@@ -1,4 +1,4 @@
-import users from './mock-data/user.json' assert {type: 'json'};
+import users from '../mock-data/user.json' assert {type: 'json'};
 
 const getUsers = (req, res) => {
   res.json(users);
