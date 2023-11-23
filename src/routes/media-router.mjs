@@ -21,7 +21,7 @@ const upload = multer({dest: 'uploads/'})
 mediaRouter.route("/")
     .get(getMedia)
     .post(authenticateToken, upload.single('file'), postMedia);
-mediaRouter.route(":id")
+mediaRouter.route("/:id")
     .get(getMediaById)
     .put(putMedia)
     .delete(deleteMedia);
