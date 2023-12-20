@@ -86,66 +86,33 @@ INSERT INTO Users (username, password, email, user_level_id) VALUES
 ('AdminUser', 'to-be-hashed-pw4', 'adminuser@example.com', 1);
 
 INSERT INTO MediaItems (user_id, filename, filesize, media_type, title, description) VALUES
-(1, 'sunset.jpg', 1024, 'image/jpeg', 'Sunset', 'A beautiful sunset'),
-(2, 'sample.mp4', 20480, 'video/mp4', 'Sample Video', 'A sample video file'),
-(2, 'ffd8.jpg', 2048, 'image/jpeg', 'Favorite food', null),
-(1, '2f9b.jpg', 1024, 'image/jpeg', 'Aksux and Jane', 'friends');
+(10, 'sunset.jpg', 1024, 'image/jpeg', 'Sunset', 'A beautiful sunset'),
+(12, 'sample.mp4', 20480, 'video/mp4', 'Sample Video', 'A sample video file'),
+(11, 'ffd8.jpg', 2048, 'image/jpeg', 'Favorite food', null),
+(16, '2f9b.jpg', 1024, 'image/jpeg', 'Aksux and Jane', 'friends');
 
 INSERT INTO Comments (media_id, user_id, comment_text) VALUES
-(1, 2, 'This is a wonderful photo!'),
-(2, 1, 'Really nice video, thanks for sharing!');
+(14, 1, 'This is a wonderful photo!'),
+(15, 2, 'Really nice video, thanks for sharing!');
 
 INSERT INTO Likes (media_id, user_id) VALUES
-(1, 2),
-(2, 1),
-(2, 2),
-(3, 1),
-(2, 3),
-(3, 3);
+(14, 2),
+(15, 1),
+(15, 2),
+(16, 1),
+(16, 3),
+(15, 3);
 
 INSERT INTO Ratings (media_id, user_id, rating_value) VALUES
-(1, 2, 5),
-(2, 1, 4),
-(1, 3, 4);
+(14, 2, 5),
+(15, 1, 4),
+(14, 3, 4);
 
 INSERT INTO Tags (tag_name) VALUES ('Nature'), ('Video'), ('Documentary'), ('Landscape');
 
 INSERT INTO MediaItemTags (media_id, tag_id) VALUES
-(1, 1),
-(1, 4),
-(2, 2),
-(3, 1),
-(2, 3);
-
-SELECT media_type, COUNT(media_type) AS count
-    FROM MediaItems
-    GROUP BY media_type;
-    HAVING COUNT(media_type) > 1;
-
-SELECT media_type, MAX(media_type) AS max_size, MIN(filesize) AS min_size
-    FROM MediaItems
-    GROUP BY media_type;
-
---Select all media files tagged with 'Nature' using subqueries
-SELECT * FROM MediaItems
-    WHERE media_id IN (
-        SELECT media_id FROM MediaItemTags
-            WHERE tag_id IN (
-                SELECT tag_id FROM Tags
-                    WHERE tag_name = 'Nature'
-            )
-    );
-
-
-SELECT title, description, filename, media_id FROM MediaItems
-    WHERE media_id IN ( --- 1, 3
-        SELECT media_id FROM MediaItemTags WHERE tag_id = (
-                SELECT tag_id FROM Tags WHERE tag_name = 'Nature'
-            )
-    );
-
---Select all media files tagged with 'Nature' using joins
-SELECT * FROM MediaItems
-    JOIN MediaItemTags ON MediaItems.media_id = MediaItemTags.media_id
-    JOIN Tags ON MediaItemTags.tag_id = Tags.tag_id
-    WHERE Tags.tag_name = 'Nature';
+(14, 1),
+(14, 4),
+(15, 2),
+(16, 1),
+(15, 3);
